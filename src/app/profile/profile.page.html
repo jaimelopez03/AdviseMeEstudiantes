@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+
+    <ion-title>Perfil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngFor="let item of user; let i = index">
+    <div *ngIf="i<1" >
+      <h1> Nombre: </h1>
+      <ion-item >   
+        <ion-input [disabled]="true" >{{item.name}} </ion-input>
+      </ion-item>
+      <h1> Sobre mi: </h1>
+      <ion-item>   
+        <ion-textarea [disabled]="true">{{item.aboutMe}} </ion-textarea>
+      </ion-item>
+      <ion-button (click)="openEditModal(item)">Editar</ion-button> 
+    </div>
+  </div>
+    
+  
+ 
+
+  
+</ion-content>

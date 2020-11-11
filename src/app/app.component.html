@@ -1,0 +1,19 @@
+<ion-app>
+  <ion-menu side="start" type="push" contentId="main">
+    <ion-header>
+      <ion-toolbar color="primary">
+        <ion-title>Assist Me - Estudiantes</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-list>
+        <ion-button [routerLink]="['/home']" color="secondary" expand="block" fill="outline"> Home </ion-button>
+        <ion-button [routerLink]="['/control-panel']" color="secondary" expand="block" fill="outline"> Control Panel </ion-button>
+        <ion-button [routerLink]="['/profile']" color="secondary" expand="block" fill="outline"> Profile </ion-button>
+        <ion-button [routerLink]="['/login']" color="secondary" expand="block" fill="outline" (click)="closeMenu()" > Log Out </ion-button>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+
+  <ion-router-outlet id="main"></ion-router-outlet>
+</ion-app>

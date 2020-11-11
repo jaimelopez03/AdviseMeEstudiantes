@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Editar Perfil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12">
+        <ion-item >
+          <ion-label  position="fixed">Nombre:</ion-label>
+          <ion-input [(ngModel)]="nombre" value="{{nombre}}"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="12">
+        <ion-item>
+          <ion-label  position="fixed">Sobre mi:</ion-label>
+          <ion-input [(ngModel)]="boutme" type="text" value="{{boutme}}"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-button (click)="updateProfile()">Actualizar</ion-button>
+  </ion-grid>    
+</ion-content>

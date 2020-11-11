@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Inicio</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row>
+    <ion-col size="12">
+      <ion-item>
+      <ion-searchbar [(ngModel)]="searchBox" (ionChange)="searchCourses()" showCancelButton="always"></ion-searchbar>
+      <ion-label>Materias</ion-label>
+      <ion-select (ionChange)="searchCourses()" placeholder="Materias" [(ngModel)]="subjects">
+        <ion-select-option value="Todas">Todas</ion-select-option>
+        <ion-select-option value="Matemáticas">Matemáticas</ion-select-option>
+        <ion-select-option value="Física">Física</ion-select-option>
+        <ion-select-option value="Biología">Biología</ion-select-option>
+        <ion-select-option value="Ciencias Computacionales">Ciencias Computacionales</ion-select-option>
+        <ion-select-option value="Leyes">Leyes</ion-select-option>
+        <ion-select-option value="Psicología">Psicología</ion-select-option>
+      </ion-select>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <h1> Cursos de la Comunidad </h1>
+  <ion-list>
+    <ion-card *ngFor="let item of searched, let i = index">
+      <ion-card-title> {{item.Title}} </ion-card-title>
+      <ion-card-content> Descripción :  {{item.Description}} </ion-card-content>
+      <ion-card-content> Asesor : {{item.TeacherName}} </ion-card-content>
+      <ion-card-content> Materia : {{item.Subject}} </ion-card-content>
+      <ion-card-content> Fecha de creación : {{item.CreationDate}} </ion-card-content>
+      <ion-card-content> Dia(s) : {{item.Days}} </ion-card-content>
+      <ion-card-content> Modalidad : {{item.TypeSession}} </ion-card-content>
+      <ion-button color="secondary" (click)="enroll2Course(item)">Registrarme</ion-button>
+    </ion-card>
+  </ion-list>
+</ion-content>

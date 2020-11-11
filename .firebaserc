@@ -1,0 +1,20 @@
+{
+  "projects": {
+    "default": "final-943d9"
+  },
+  "targets": {
+    "final-943d9": {
+      "hosting": {
+        "alumnos": [
+          "assitmestudent"
+        ],
+        "assitmestudent": [
+          "final-943d9"
+        ],
+        "assistmestudent": [
+          "assistmestudent"
+        ]
+      }
+    }
+  }
+}
