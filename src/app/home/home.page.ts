@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { CoursesService } from '../services/courses.service';
 import { FormGroup } from '@angular/forms';
-import { AlertController } from '@ionic/angular';
+import { AlertController, MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +13,8 @@ export class HomePage implements OnInit {
 
   constructor(private authService : AuthService,
               private courseService : CoursesService,
-              private alertController: AlertController) { }
+              private alertController: AlertController,
+              private menu: MenuController) { }
 
   courses = []
   user : any;
@@ -24,6 +25,7 @@ export class HomePage implements OnInit {
   ngOnInit() {
     console.log(this.authService.GetID())
     this.getCourses();
+    this.menu.enable(true);
     this.authService.user$.subscribe((user) => {
       this.user = user;
     });

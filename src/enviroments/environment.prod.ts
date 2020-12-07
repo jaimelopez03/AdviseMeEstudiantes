@@ -8,5 +8,6 @@ export const environment = {
     storageBucket: "cetysassist.appspot.com",
     messagingSenderId: "546654733633",
     appId: "1:546654733633:web:8fe6abaee8b8a7bf870dc0"
+
   }
 }

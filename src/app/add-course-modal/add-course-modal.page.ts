@@ -38,21 +38,21 @@ export class AddCourseModalPage implements OnInit {
     });
   }
 
-  add() {
-    console.log();
+  // add() {
+  //   console.log();
 
-    var temp = {
-      name : this.addForm.controls.Title.value,
-      description : this.addForm.controls.Description.value,
-      teachername : this.user.name,
-      teacherID : this.authService.GetID(),
-      subject : this.subjects,
-      days : this.days,
-      creationDate : formatDate(new Date(), 'yyyy/MM/dd', 'en'),
-      enrolled : [],
-    }
+  //   var temp = {
+  //     name : this.addForm.controls.Title.value,
+  //     description : this.addForm.controls.Description.value,
+  //     teachername : this.user.name,
+  //     teacherID : this.authService.GetID(),
+  //     subject : this.subjects,
+  //     days : this.days,
+  //     creationDate : formatDate(new Date(), 'yyyy/MM/dd', 'en'),
+  //     enrolled : [],
+  //   }
 
-    this.courseService.createCourse(temp)
-  }
+  //   this.courseService.createCourse(temp)
+  // }
 
 }

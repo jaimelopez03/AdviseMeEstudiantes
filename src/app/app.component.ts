@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { environment } from 'src/enviroments/environment';
-import { Platform, MenuController } from '@ionic/angular';
+import { Platform, MenuController, NavController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
@@ -14,7 +14,8 @@ export class AppComponent {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private menu : MenuController
+    private menu : MenuController,
+    private navCtrl : NavController
   ) {
     this.initializeApp();
   }
@@ -27,7 +28,8 @@ export class AppComponent {
   }
 
   closeMenu() {
-    
     this.menu.close("main")
+    this.navCtrl.navigateRoot(['login']);
+    this.menu.enable(false)
   }
 }

@@ -12,89 +12,60 @@ export class UserService {
               private afStorage: AngularFireStorage) { }
 
   getUser(uid: string) {
-    return this.afs.doc(`students/${uid}`).valueChanges();
+    return this.afs.doc(`Estudiantes/${uid}`).valueChanges();
   }
 
   getAllUsers() {
-    return this.afs.collection('users').snapshotChanges().pipe(
+    return this.afs.collection('Asesores').snapshotChanges().pipe(
       map(docs => docs.map(doc => doc.payload.doc.data()))
     );
   }
 
   createUser(user: any) {
-    return this.afs.doc(`students/${user.id}`).set(user);
+    return this.afs.doc(`Estudiantes/${user.id}`).set(user);
   }
 
-  createUsername(user: any) {
-    const doc = {
-      username: user.username,
-      uid: user.id
-    };
+  // createUsername(user: any) {
+  //   const doc = {
+  //     username: user.username,
+  //     uid: user.id
+  //   };
 
-    return this.afs.doc(`usernames/${user.username}`).set(doc);
-  }
+  //   return this.afs.doc(`nombreUsuario/${user.username}`).set(doc);
+  // }
 
-  searchUsers(username: string) {
-    return this.afs.collection('students', ref => ref
-      .where('username', '>=', username)
-      .where('username', '<=', username + '\uf8ff')
-      .limit(10)
-      .orderBy('username'))
-      .snapshotChanges()
-      .pipe(map(actions => actions.map(a => {
-        return a.payload.doc.data();
-      }))
-    );
-  }
+  // searchUsers(username: string) {
+  //   return this.afs.collection('Estudiantes', ref => ref
+  //     .where('nombreUsuario', '>=', username)
+  //     .where('nombreUsuario', '<=', username + '\uf8ff')
+  //     .limit(10)
+  //     .orderBy('nombreUsuario'))
+  //     .snapshotChanges()
+  //     .pipe(map(actions => actions.map(a => {
+  //       return a.payload.doc.data();
+  //     }))
+  //   );
+  // }
 
-  async usernameExists(username: string): Promise<boolean> {
-    return new Promise(async (resolve, reject) => {
-      const user = await this.afs.doc(`usernames/${username}`).get().toPromise().then((doc) => doc.exists);
+  // async usernameExists(username: string): Promise<boolean> {
+  //   return new Promise(async (resolve, reject) => {
+  //     const user = await this.afs.doc(`nombreUsuario/${username}`).get().toPromise().then((doc) => doc.exists);
 
-      if (user) {
-        reject(new Error('Username is already taken.'));
-      } else {
-        resolve(true);
-      }
-    });
-  }
+  //     if (user) {
+  //       reject(new Error('Nombre de Usuario no disponible.'));
+  //     } else {
+  //       resolve(true);
+  //     }
+  //   });
+  // }
 
   updateUser(id: string, updatedUser: any) {
-    return this.afs.doc(`students/${id}`).update(updatedUser);
+    return this.afs.doc(`Estudiantes/${id}`).update(updatedUser);
   }
 
   updateTeacher(id: string, updatedUser: any) {
-    return this.afs.doc(`users/${id}`).update(updatedUser);
+    return this.afs.doc(`Asesores/${id}`).update(updatedUser);
   }
 
-  async uploadProfilePicture(uid: string, image: File) {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const filePath = `profilePictures/${uid}.jpeg`;
-        const task = this.afStorage.upload(filePath, image);
-        await task.snapshotChanges().toPromise();
-        const pictureUrl = await this.afStorage.ref(filePath).getDownloadURL().toPromise();
-        await this.updateUser(uid, { pictureUrl });
-
-        resolve(true);
-      } catch (error) {
-        reject(error);
-      }
-    });
-  }
-
-  async removeProfilePicture(uid: string) {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const filePath = `profilePictures/${uid}.jpeg`;
-        const task = this.afStorage.ref(filePath).delete();
-        await task.toPromise();
-        await this.updateUser(uid, { pictureUrl: null });
-
-        resolve(true);
-      } catch (error) {
-        reject(error);
-      }
-    });
-  }
+  
 }

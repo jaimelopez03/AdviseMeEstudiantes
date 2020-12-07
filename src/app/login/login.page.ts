@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { NavController, AlertController, LoadingController } from '@ionic/angular';
+import { NavController, AlertController, LoadingController, MenuController } from '@ionic/angular';
 import { AuthService } from '../services/auth.service';
 import { take } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -20,15 +20,16 @@ export class LoginPage implements OnInit {
               private navCtrl: NavController,
               private router: Router,
               private alertCtrl: AlertController,
-              private loadingCtrl: LoadingController) { }
+              private loadingCtrl: LoadingController,
+              private menu: MenuController ){ }
 
   ngOnInit() {
     this.initForm();
-
+    this.menu.enable(false);
     const navigationId = this.router.getCurrentNavigation().id;
 
     if (navigationId === 1) {
-      this.presentLoading('Loading...');
+      this.presentLoading('Cargando...');
       this.authService.user$.pipe(take(1)).subscribe((user) => {
         setTimeout(() => {
           this.dismissLoading();
@@ -48,7 +49,7 @@ export class LoginPage implements OnInit {
   }
 
   async onSubmit(): Promise<void> {
-    await this.presentLoading('Authenticating you...');
+    await this.presentLoading('Autenticandote...');
 
     if (this.loginForm.valid) {
       const email = this.loginForm.controls.email.value;
@@ -61,7 +62,7 @@ export class LoginPage implements OnInit {
         this.navCtrl.navigateRoot(['home']);
       }).catch((error) => {
         this.dismissLoading();
-        this.presentAlert('Something went wrong', error.message);
+        this.presentAlert('Algo salio mal.', error.message);
       });
       
     
@@ -70,7 +71,7 @@ export class LoginPage implements OnInit {
 
     } else {
       this.dismissLoading();
-      this.presentAlert('Something went wrong', 'Please type in your email and password.');
+      this.presentAlert('Algo salio mal.', 'Email o contraseña incorrecto.');
     }
   }
 
@@ -95,7 +96,7 @@ export class LoginPage implements OnInit {
     const alert = await this.alertCtrl.create({
       header: title,
       message: body,
-      buttons: ['Got It']
+      buttons: ['Entendido']
     });
 
     await alert.present();

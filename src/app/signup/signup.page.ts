@@ -45,44 +45,48 @@ export class SignupPage implements OnInit {
   initForm(): void {
     this.signupForm = new FormGroup({
       email: new FormControl(null, [Validators.required, Validators.email]),
-      name: new FormControl(null, [Validators.required]),
-      aboutMe: new FormControl(null, [Validators.required, Validators.minLength(6)]),
+      nombre: new FormControl(null, [Validators.required]),
+      matricula: new FormControl(null, [Validators.required, Validators.minLength(6)]),
+      facultad: new FormControl(null, [Validators.required, Validators.minLength(6)]),
       password: new FormControl(null, [Validators.required, Validators.minLength(6)]),
       confirmPassword: new FormControl(null, [Validators.required, Validators.minLength(6)])
     });
   }
 
   async onSubmit(): Promise<void> {
-    await this.presentLoading('Authenticating you...');
+    await this.presentLoading('Autenticandote...');
 
     if (this.signupForm.valid) {
       const email = this.signupForm.controls.email.value;
       const password = this.signupForm.controls.password.value;
-      const aboutMe = this.signupForm.controls.aboutMe.value;
-      const name = this.signupForm.controls.name.value;
+      const facultad = this.signupForm.controls.facultad.value;
+      const matricula = this.signupForm.controls.matricula.value;
+      const nombre = this.signupForm.controls.nombre.value;
 
       try {
         const credentials = await this.authService.signup(email, password);
 
         const user = {
           id: credentials.user.uid,
-          aboutMe,
+          facultad,
           email,
-          name,
+          nombre,
+          matricula,
+          password,
         };
 
         await this.userService.createUser(user);
         await this.authService.logout();
         this.dismissLoading();
-        this.presentAlertConfirm('Welcome aboard!', 'Your account has been created successfully.');
+        this.presentAlertConfirm('Bienvenido!', 'Tu cuenta ha sido creada satisfactoriamente.');
       } catch (error) {
         this.dismissLoading();
-        this.presentAlert('Something went wrong', error.message);
+        this.presentAlert('Algo salio mal', error.message);
       }
 
     } else {
       this.dismissLoading();
-      this.presentAlert('Something went wrong', 'Please fill in all the fields correctly.');
+      this.presentAlert('Algo salio mal', 'Por favor llena correctamente los campos.');
     }
   }
 
@@ -107,7 +111,7 @@ export class SignupPage implements OnInit {
     const alert = await this.alertCtrl.create({
       header: title,
       message: body,
-      buttons: ['Got It']
+      buttons: ['Entendido']
     });
 
     await alert.present();
@@ -119,7 +123,7 @@ export class SignupPage implements OnInit {
       message: body,
       buttons: [
         {
-          text: 'Got It',
+          text: 'Entendido',
           handler: () => {
             this.navCtrl.navigateRoot(['']);
           }
