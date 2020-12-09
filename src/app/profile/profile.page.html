@@ -14,11 +14,11 @@
     <div *ngIf="i<1" >
       <h1> Nombre: </h1>
       <ion-item >   
-        <ion-input [disabled]="true" >{{item.name}} </ion-input>
+        <ion-input [disabled]="true" >{{item.nombre}} </ion-input>
       </ion-item>
       <h1> Sobre mi: </h1>
       <ion-item>   
-        <ion-textarea [disabled]="true">{{item.aboutMe}} </ion-textarea>
+        <ion-textarea [disabled]="true">Facultad: {{item.facultad}} <br>Matricula: {{item.matricula}} </ion-textarea>
       </ion-item>
       <ion-button (click)="openEditModal(item)">Editar</ion-button> 
     </div>
